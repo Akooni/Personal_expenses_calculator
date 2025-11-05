@@ -12,7 +12,15 @@ while True:
             date = today
 
         category= input("Enter Category:")
-        amount= float(input("Enter the amount here:"))
+
+        #To make the app solid and don't break when faced with a str
+        while True:
+            try:
+                amount= float(input("Enter the amount here:"))
+                break
+            except ValueError:
+              print("Please enter a number, not text 🙂")
+
         desc = str(input("Enter description: "))
         with open("expenses.csv",'a') as f:
             f.write(f"{date},{category},{amount},{desc}\n")
@@ -30,7 +38,7 @@ while True:
         for category,amount in totals.items():
             print(f"{category:<15} OMR {amount:,.2f}")
 
-    if choice == "q":
+    elif choice == "q":
         break
 
     else:
