@@ -18,8 +18,17 @@ while True:
             f.write(f"{date},{category},{amount},{desc}\n")
             print("✅ Expense added!")
         df = pd.read_csv("expenses.csv")
-        totals = df.groupby("category")["amount"].sum()
-        print("\n Totals so far: \n",totals)
+        # to show to amount in ascending order
+        totals = (
+             df.groupby("category")["amount"]
+             .sum()
+             .sort_values(ascending=False)
+        )
+
+        print("\n 💰 Totals so far: \n")
+        #loop to show OMR in each amount
+        for category,amount in totals.items():
+            print(f"{category:<15} OMR {amount:,.2f}")
 
     if choice == "q":
         break
