@@ -5,8 +5,8 @@ from datetime import date
 
 today = str(date.today())
 while True:
-    choice = input("Add expense or quit? (a/q): ").lower()
-    if choice == "a":
+    choice = input("Add expense or quit? (add/quit/today): ").lower()
+    if choice == "add":
         date = input("Enter Date (YYYY-MM-DD):")
         if date == "":
             date = today
@@ -33,12 +33,22 @@ while True:
              .sort_values(ascending=False)
         )
 
+
         print("\n 💰 Totals so far: \n")
         #loop to show OMR in each amount
         for category,amount in totals.items():
             print(f"{category:<15} OMR {amount:,.2f}")
 
-    elif choice == "q":
+
+    elif choice =="today":
+        df = pd.read_csv("expenses.csv")
+        today_rows = df[df["date"] == today]
+        today_total = today_rows["amount"].sum()
+        print(f"🕒 Today’s spending: OMR {today_total:,.2f}")
+        
+
+
+    elif choice == "quit":
         break
 
     else:
